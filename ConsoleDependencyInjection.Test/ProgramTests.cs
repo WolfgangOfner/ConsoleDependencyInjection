@@ -12,10 +12,10 @@ namespace ConsoleDependencyInjection.Test
 
         public ProgramTests()
         {
-            // https://stackoverflow.com/questions/44336489/moq-iserviceprovider-iservicescope
             var serviceProvider = new Mock<IServiceProvider>();
-            serviceProvider.Setup(x => x.GetService(typeof(IGreeter))).Returns(new ConsoleGreeter());
+            serviceProvider.Setup(x => x.GetService(typeof(IGreeter))).Returns(new ConsoleGreeter(Mock.Of<IFooService>()));
 
+            // https://stackoverflow.com/questions/44336489/moq-iserviceprovider-iservicescope
             var serviceScope = new Mock<IServiceScope>();
             serviceScope.Setup(x => x.ServiceProvider).Returns(serviceProvider.Object);
 
